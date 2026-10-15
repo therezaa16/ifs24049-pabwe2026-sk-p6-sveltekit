@@ -1,14 +1,14 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig, loadEnv } from "vite";
 import adapterBun from "@sveltejs/adapter-bun";
-import adapterNetlify from "@sveltejs/adapter-netlify";
+import adapterVercel from "@sveltejs/adapter-vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { svelteTesting } from "@testing-library/svelte/vite";
 import process from "process";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const isNetlify = process.env.NETLIFY === "true";
+  const isVercel = process.env.VERCEL === "1";
   const port = Number(process.env.APP_PORT || env.APP_PORT) || 3005;
 
   return {
@@ -16,9 +16,9 @@ export default defineConfig(({ mode }) => {
       sveltekit({
         // Sisipkan CSS ke dalam HTML agar tidak menjadi render-blocking request.
         inlineStyleThreshold: Infinity,
-        // Netlify menyetel NETLIFY=true saat build; di tempat lain (lokal/Jenkins) tetap adapter-bun.
-        adapter: isNetlify
-          ? adapterNetlify()
+        // Vercel menyetel VERCEL=1 saat build; di tempat lain (lokal/Jenkins) tetap adapter-bun.
+        adapter: isVercel
+          ? adapterVercel()
           : adapterBun({
               envPrefix: "APP_",
               serverOptions: {

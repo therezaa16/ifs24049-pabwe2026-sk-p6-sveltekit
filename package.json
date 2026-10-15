@@ -7,7 +7,6 @@
     "start": "bun ./build",
     "dev": "vite dev",
     "build": "bun --bun vite build",
-    "build:netlify": "vite build",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -25,7 +24,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-bun": "^1.0.0",
-    "@sveltejs/adapter-netlify": "^7.0.1",
+    "@sveltejs/adapter-vercel": "^7.0.0",
     "@sveltejs/kit": "^3.0.1",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@tailwindcss/vite": "^4.3.3",
@@ -39,5 +38,8 @@
     "typescript": "^5.9.3",
     "vite": "^8.3.4",
     "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
