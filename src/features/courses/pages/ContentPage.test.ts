@@ -141,11 +141,13 @@ describe("Courses ContentPage", () => {
     expect(wrapper.text()).not.toContain("Menyimpan...");
   });
 
-  it("should go back to the course when the content failed to load", async () => {
-    const { coursesStore: store } = render(student, { content: null });
+  it("should show a not-found state, without redirecting, when the content failed to load", async () => {
+    const { wrapper, coursesStore: store } = render(student, { content: null });
     store.setIsContent(true);
     await tick();
-    expect(mockGoto).toHaveBeenCalledWith("/courses/7");
+    expect(wrapper.find('[data-testid="content-not-found"]').exists()).toBe(true);
+    expect(wrapper.find('[data-testid="not-found-back-link"]').attributes("href")).toBe("/courses/7");
+    expect(mockGoto).not.toHaveBeenCalled();
   });
 
   it("should stay when the content loaded", async () => {
@@ -155,8 +157,8 @@ describe("Courses ContentPage", () => {
     expect(mockGoto).not.toHaveBeenCalled();
   });
 
-  it("should go home when the course failed to load, and stay when it loaded", async () => {
-    const { coursesStore: store } = render(student);
+  it("should not redirect when the course finished loading or failed to load", async () => {
+    const { wrapper, coursesStore: store } = render(student);
     store.setIsCourse(true);
     await tick();
     expect(mockGoto).not.toHaveBeenCalled();
@@ -164,6 +166,7 @@ describe("Courses ContentPage", () => {
     store.setCourse(null);
     store.setIsCourse(true);
     await tick();
-    expect(mockGoto).toHaveBeenCalledWith("/");
+    expect(mockGoto).not.toHaveBeenCalled();
+    expect(wrapper.find("h1").text()).toBe("Pengenalan HTML");
   });
 });

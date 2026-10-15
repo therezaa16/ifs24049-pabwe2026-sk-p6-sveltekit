@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { goto } from "$app/navigation";
   import { coursesStore } from "../states/coursesStore";
   import { usersStore } from "../../users/states/usersStore";
   import { getYoutubeEmbedUrl } from "../utils/youtube";
@@ -30,18 +29,16 @@
     coursesStore.asyncSetContent(contentId);
   }
 
+  // Konten tidak ditemukan: tampilkan keadaan kosong di halaman yang sama (URL tetap).
+  let notFound = false;
   $: if ($coursesStore.isContent) {
     coursesStore.setIsContent(false);
-    if (!content) {
-      goto(`/courses/${courseId}`);
-    }
+    notFound = !content;
   }
 
+  // Judul kursus bersifat pelengkap, jadi kegagalan memuat kursus tidak mengalihkan halaman.
   $: if ($coursesStore.isCourse) {
     coursesStore.setIsCourse(false);
-    if (!course) {
-      goto("/");
-    }
   }
 
   $: if ($coursesStore.isLearnChange) {
@@ -59,7 +56,24 @@
   }
 </script>
 
-{#if !profile || !content}
+{#if notFound}
+  <div
+    class="flex flex-col items-center justify-center text-center py-20 gap-3"
+    data-testid="content-not-found"
+    role="alert"
+  >
+    <h1 class="text-2xl font-extrabold text-slate-900">Konten tidak ditemukan</h1>
+    <p class="text-sm text-slate-600">Konten yang Anda cari tidak tersedia atau sudah dihapus.</p>
+    <a
+      href={`/courses/${courseId}`}
+      data-testid="not-found-back-link"
+      class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:text-indigo-800"
+    >
+      <ArrowLeft size={18} />
+      Kembali ke Kursus
+    </a>
+  </div>
+{:else if !profile || !content}
   <div class="flex flex-col items-center justify-center py-20" role="status" aria-label="Memuat">
     <div class="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
   </div>

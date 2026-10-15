@@ -93,11 +93,13 @@ describe("Courses DetailPage", () => {
       expect(detailSpy).toHaveBeenCalledWith(8);
     });
 
-    it("should redirect home when loading finished without a course", async () => {
-      const { coursesStore: store } = render(owner, null);
+    it("should show a not-found state, without redirecting, when loading finished without a course", async () => {
+      const { wrapper, coursesStore: store } = render(owner, null);
       store.setIsCourse(true);
       await tick();
-      expect(mockGoto).toHaveBeenCalledWith("/");
+      expect(wrapper.find('[data-testid="course-not-found"]').exists()).toBe(true);
+      expect(wrapper.find('[data-testid="not-found-back-link"]').attributes("href")).toBe("/");
+      expect(mockGoto).not.toHaveBeenCalled();
     });
 
     it("should stay when loading finished with a course", async () => {

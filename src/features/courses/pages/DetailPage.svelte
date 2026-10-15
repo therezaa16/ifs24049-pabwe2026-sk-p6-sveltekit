@@ -64,11 +64,12 @@
     coursesStore.asyncSetCourse(courseId);
   }
 
+  // Kursus tidak ditemukan: tampilkan keadaan kosong di halaman yang sama
+  // (URL tetap) alih-alih mengalihkan pengguna ke beranda.
+  let notFound = false;
   $: if ($coursesStore.isCourse) {
     coursesStore.setIsCourse(false);
-    if (!course) {
-      goto("/");
-    }
+    notFound = !course;
   }
 
   $: if ($coursesStore.isCourseDelete) {
@@ -158,7 +159,24 @@
   }
 </script>
 
-{#if !profile || !course}
+{#if notFound}
+  <div
+    class="flex flex-col items-center justify-center text-center py-20 gap-3"
+    data-testid="course-not-found"
+    role="alert"
+  >
+    <h1 class="text-2xl font-extrabold text-slate-900">Kursus tidak ditemukan</h1>
+    <p class="text-sm text-slate-600">Kursus yang Anda cari tidak tersedia atau sudah dihapus.</p>
+    <a
+      href="/"
+      data-testid="not-found-back-link"
+      class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:text-indigo-800"
+    >
+      <ArrowLeft size={18} />
+      Kembali ke Daftar Kursus
+    </a>
+  </div>
+{:else if !profile || !course}
   <div class="flex flex-col items-center justify-center py-20" role="status" aria-label="Memuat">
     <div class="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
   </div>
