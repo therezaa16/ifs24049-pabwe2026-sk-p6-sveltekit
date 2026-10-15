@@ -14,6 +14,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       sveltekit({
+        // Sisipkan CSS ke dalam HTML agar tidak menjadi render-blocking request.
+        inlineStyleThreshold: Infinity,
         // Netlify menyetel NETLIFY=true saat build; di tempat lain (lokal/Jenkins) tetap adapter-bun.
         adapter: isNetlify
           ? adapterNetlify()

@@ -151,7 +151,7 @@
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
       <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="relative flex-1 max-w-md">
-          <Search size={18} class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+          <Search size={18} class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" />
           <input
             type="search"
             aria-label="Cari kursus"
@@ -212,7 +212,7 @@
             {:else if filteredCourses.length === 0}
               <tr>
                 <td colspan="6" class="px-6 py-12 text-center text-slate-600">
-                  <GraduationCap size={40} class="mx-auto text-slate-400 mb-2" />
+                  <GraduationCap size={40} class="mx-auto text-slate-500 mb-2" />
                   <p class="font-medium">Belum ada data kursus yang cocok.</p>
                 </td>
               </tr>

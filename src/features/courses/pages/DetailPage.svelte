@@ -178,6 +178,7 @@
   </div>
 {:else if !profile || !course}
   <div class="flex flex-col items-center justify-center py-20" role="status" aria-label="Memuat">
+    <h1 class="sr-only">Detail Kursus</h1>
     <div class="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
   </div>
 {:else}
@@ -323,7 +324,7 @@
 
           {#if contents.length === 0}
             <div data-testid="contents-empty" class="text-center py-10 text-slate-600 border border-dashed border-slate-300 rounded-2xl">
-              <Video size={32} class="mx-auto text-slate-400 mb-2" />
+              <Video size={32} class="mx-auto text-slate-500 mb-2" />
               <p class="text-sm font-medium">Belum ada konten pada kursus ini.</p>
             </div>
           {:else}

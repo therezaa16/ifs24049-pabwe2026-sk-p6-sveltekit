@@ -75,6 +75,7 @@
   </div>
 {:else if !profile || !content}
   <div class="flex flex-col items-center justify-center py-20" role="status" aria-label="Memuat">
+    <h1 class="sr-only">Konten Kursus</h1>
     <div class="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
   </div>
 {:else}
@@ -103,7 +104,7 @@
         </div>
       {:else}
         <div data-testid="content-invalid" class="p-8 text-center text-slate-700 bg-slate-50">
-          <Video size={36} class="mx-auto text-slate-500 mb-2" />
+          <Video size={36} class="mx-auto text-slate-600 mb-2" />
           <p class="font-medium">Tautan YouTube tidak dapat ditampilkan.</p>
           <a
             href={content.youtube}
