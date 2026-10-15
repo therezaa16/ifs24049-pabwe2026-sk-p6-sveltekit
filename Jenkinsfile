@@ -209,8 +209,8 @@ pipeline {
                         -x ".env" \
                         -x ".env.*" \
                         -x "coverage/*" \
-                        -x "dist/*" \
-                        -x "out/*" \
+                        -x "build/*" \
+                        -x ".svelte-kit/*" \
                         -x ".trivy-cache/*" \
                         -x "latest-app.zip" \
                         -x "trivy-results.sarif" \
